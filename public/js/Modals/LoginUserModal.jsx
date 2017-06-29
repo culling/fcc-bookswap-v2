@@ -78,9 +78,19 @@ class LoginUserModal extends React.Component{
             data: JSON.stringify(formDataObject ),
             success: function(){
                 console.log("Success");
-                //_this._getUser();
+                _this.props.getUser();
                 //_this._sendUserMessage(userMessage);
             },
+            statusCode:{
+                400:function(){
+                    alert("Login Failed");
+                },
+                401: function(){
+                    alert("Username or password incorrect");
+                }
+            },
+            
+
             dataType: "text",
             contentType : "application/json"
         });

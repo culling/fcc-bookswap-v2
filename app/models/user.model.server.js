@@ -82,35 +82,7 @@ UserSchema.methods.validatePassword = function(password){
 
 
 
-/*
-exports.findByUsername = function(username, cb){
-    UserModel.find({"username": username},{"password": 0, "salt":0}, function(err, foundUsers){
-        if(err){
-            console.error(err);
-        }
-        cb(foundUsers);
-    });
-}
-
-
-exports.create  = function(user){
-    console.log("Create Called");
-    console.log(user);
-    var newUser = new UserModel(user);
-    
-    newUser.save();
-};
-
-exports.findAll = function(cb){
-    UserModel.find()
-    .exec(
-        function(err, results){
-            if(err) return handleError(err);
-            cb(results);
-        }
-    );
-};
-*/
 // Compile model from schema
 var UserModel       = mongoose.model('User', UserSchema );
 exports.UserModel   = UserModel;
+

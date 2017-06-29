@@ -34,6 +34,7 @@ exports.getUserByUsername = function(username, done){
             console.error(err);
             done(err, null);
         };
+        console.log(user);
         done(null, user);
     });
 }
@@ -48,6 +49,18 @@ exports.updatePassword  = function(user, done){
     });
 };
 
+exports.update = function(user, done){
+    console.log("Update on UserController called");
+    UserModel.update({"username": user.username},
+        user, function(err, response){
+            if (err){
+                return next (err);
+            } else {
+                done();
+            }
+        }
+    );
+}
 
 exports.create  = function(user){
     console.log("Create Called");
