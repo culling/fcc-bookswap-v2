@@ -46,10 +46,12 @@ exports.updatePassword  = function(user, done){
     UserModel.findOne({ username: user.username }, function (err, doc){
         doc.password = user.password;
         doc.save();
+        done();
     });
 };
 
 exports.update = function(user, done){
+    console.log(user);
     console.log("Update on UserController called");
     UserModel.update({"username": user.username},
         user, function(err, response){
