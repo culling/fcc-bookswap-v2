@@ -2,10 +2,10 @@ import React from 'react';
 import {render} from 'react-dom';
 
 
-import NewBookModalStep1     from "./Modals/NewBookModalStep1.jsx";
-import NewBookModalStep2     from "./Modals/NewBookModalStep2.jsx";
+import NewBookModalStep1     from "./../Modals/NewBookModalStep1.jsx";
+import NewBookModalStep2     from "./../Modals/NewBookModalStep2.jsx";
 
-class HomeContainer extends React.Component{
+class NewBookContainer extends React.Component{
 
     constructor(props){
         super(props);
@@ -14,6 +14,8 @@ class HomeContainer extends React.Component{
             newBookName: ""
         }
 
+        //Binding to this for functions
+        this._setNewBookName = this._setNewBookName.bind(this);
     };
 
     componentWillMount(){
@@ -28,15 +30,22 @@ class HomeContainer extends React.Component{
         //socket.removeListener('new state');
    }
 
-   _setNewBookName(newBookName){
+    _setNewBookName(bookSearch){
+        console.log("Set New Book Name called");
+        var newBookName = bookSearch.newBookName;
         this.setState({newBookName: newBookName});
-   }
+
+        
+
+
+        jQuery("#new-book-modal-step2").modal("open");        
+    }
 
 
     render(){
         return(
             <div id="new-book-container" className="new-book-container">
-                    <NewBookModalStep1 />
+                    <NewBookModalStep1 setNewBookName={ this._setNewBookName.bind(this) } />
                     <NewBookModalStep2 newBookName={this.state.newBookName} />
 
             </div>
@@ -45,4 +54,4 @@ class HomeContainer extends React.Component{
 }
 
 
-export default HomeContainer;
+export default NewBookContainer;

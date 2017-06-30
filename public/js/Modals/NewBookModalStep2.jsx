@@ -3,7 +3,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-class NewBookModal extends React.Component{
+class NewBookModalStep2 extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -91,15 +91,13 @@ class NewBookModal extends React.Component{
             <div id="new-book-modal-step2" className="modal">
                 <form id="NewBookForm">
                     <div className="modal-content">
-                        <h4>New Book</h4>
+                        <h4>New Book - Step 2</h4>
 
                             <div className="input-field">
                                 <i className="material-icons prefix">assignment_ind</i>
                                 <input type="text" name="bookName" id="bookName" required />
                                 <label htmlFor="bookName" >Book Name </label>
                             </div>
-                        <button  className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this._submitClicked.bind(this)}>Submit</button>
-                        <a  className="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
 
 
                     </div>
@@ -113,5 +111,5 @@ class NewBookModal extends React.Component{
     }
 }
 
-export default NewBookModal;
+export default NewBookModalStep2;
 
