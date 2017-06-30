@@ -43,7 +43,7 @@ class PrimaryNavbar extends React.Component{
 
     _newBookClicked(){
         console.log("new book clicked");
-        jQuery("#new-book-modal").modal("open");
+        jQuery("#new-book-modal-step1").modal("open");
     }
 
     _signupClicked(){

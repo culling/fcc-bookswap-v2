@@ -13,7 +13,21 @@ class NewBookModal extends React.Component{
 
     componentWillMount(){
         jQuery( document ).ready(function(){
-            jQuery('.modal').modal();
+            
+            jQuery('#new-book-modal-step1').modal({
+                dismissible: false,
+                ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+                    alert("Ready");
+                    console.log(modal, trigger);
+                },
+                complete:{
+                    function(){
+                        jQuery("#new-book-modal-step2").modal("open");
+                    }
+                }
+            });
+
+
         });
     }
 
@@ -56,12 +70,13 @@ class NewBookModal extends React.Component{
     //End _sendUserMessage
 
 
-    _submitClicked(){
+    _submitClicked(event){
+        event.preventDefault();
         console.log("Submit Clicked");
 
         let _this = this;
         var userMessage = {user:  this.props.user,
-            message: "New user created"
+            message: "New book created"
         };
         
         var formDataSerializedArray = jQuery("#NewBookForm").serializeArray();
@@ -73,7 +88,7 @@ class NewBookModal extends React.Component{
         console.log(JSON.stringify( formDataObject ));
         jQuery.ajax({
             type: "POST",
-            url: "/api/user",
+            url: "/api/book",
             data: JSON.stringify(formDataObject ),
             success: function(){
                 console.log("Success");
@@ -83,13 +98,11 @@ class NewBookModal extends React.Component{
             dataType: "text",
             contentType : "application/json"
         });
-
-
     }
 
     render(){
         return(
-            <div id="new-book-modal" className="modal">
+            <div id="new-book-modal-step1" className="modal">
                 <form id="NewBookForm">
                     <div className="modal-content">
                         <h4>New Book</h4>
@@ -99,6 +112,9 @@ class NewBookModal extends React.Component{
                                 <input type="text" name="bookName" id="bookName" required />
                                 <label htmlFor="bookName" >Book Name </label>
                             </div>
+                        <button  className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this._submitClicked.bind(this)}>Submit</button>
+                        <a  className="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+
 
                     </div>
                     <div className="modal-footer">

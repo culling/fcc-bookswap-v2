@@ -1,6 +1,9 @@
 // /login/twitter
 
-class LoginUserModal extends React.Component{
+import React from 'react';
+import {render} from 'react-dom';
+
+class NewBookModal extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -10,7 +13,7 @@ class LoginUserModal extends React.Component{
 
     componentWillMount(){
         jQuery( document ).ready(function(){
-            jQuery('#login-user-modal').modal();
+            jQuery('#new-book-modal-step2').modal();
         });
     }
 
@@ -53,80 +56,62 @@ class LoginUserModal extends React.Component{
     //End _sendUserMessage
 
 
-    _submitClicked(){
+    _submitClicked(event){
+        event.preventDefault();
         console.log("Submit Clicked");
 
         let _this = this;
         var userMessage = {user:  this.props.user,
-            message: "User Logged in"
+            message: "New user created"
         };
         
-        var formDataSerializedArray = jQuery("#LoginUserForm").serializeArray();
+        var formDataSerializedArray = jQuery("#NewBookForm").serializeArray();
         var formDataObject = this._objectifyForm(formDataSerializedArray);
         //formDataObject.owner = this.props.user._id;
-        jQuery("#username")
-                .add("#password")
+        jQuery("#bookName")
                 .val("");
 
         console.log(JSON.stringify( formDataObject ));
         jQuery.ajax({
             type: "POST",
-            url: "/login",
+            url: "/api/book",
             data: JSON.stringify(formDataObject ),
             success: function(){
                 console.log("Success");
-                _this.props.getUser();
+                //_this._getUser();
                 //_this._sendUserMessage(userMessage);
             },
-            statusCode:{
-                400:function(){
-                    alert("Login Failed");
-                },
-                401: function(){
-                    alert("Username or password incorrect");
-                }
-            },
-            
-
             dataType: "text",
             contentType : "application/json"
         });
-
-
     }
 
     render(){
         return(
-            <div id="login-user-modal" className="modal">
-                <form id="LoginUserForm">
-                <div className="modal-content">
-                    <h4>Login</h4>
+            <div id="new-book-modal-step2" className="modal">
+                <form id="NewBookForm">
+                    <div className="modal-content">
+                        <h4>New Book</h4>
 
-                        <div className="input-field">
-                            <i className="material-icons prefix">assignment_ind</i>
-                            <input type="text" name="username" id="username" required />
-                            <label htmlFor="username" >Username </label>
-                        </div>
+                            <div className="input-field">
+                                <i className="material-icons prefix">assignment_ind</i>
+                                <input type="text" name="bookName" id="bookName" required />
+                                <label htmlFor="bookName" >Book Name </label>
+                            </div>
+                        <button  className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this._submitClicked.bind(this)}>Submit</button>
+                        <a  className="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
 
 
-
-
-
-                        <div className="input-field">
-                            <i className="material-icons prefix">lock</i>
-                            <input type="password" name="password" id="password" required className="validate" pattern=".{5,64}"  />
-                            <label htmlFor="password" >Password </label>
-                        </div>
-                </div>
-                <div className="modal-footer">
-                <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this._submitClicked.bind(this)}>Submit</a>
-                <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
-                </div>
+                    </div>
+                    <div className="modal-footer">
+                        <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this._submitClicked.bind(this)}>Submit</a>
+                        <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                    </div>
                 </form>
             </div>
         )
     }
 }
 
-export default LoginUserModal;
+export default NewBookModal;
 

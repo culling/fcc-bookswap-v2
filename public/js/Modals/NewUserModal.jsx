@@ -13,7 +13,7 @@ class NewUserModal extends React.Component{
 
     componentWillMount(){
         jQuery( document ).ready(function(){
-            jQuery('.modal').modal();
+            jQuery('#new-user-modal').modal();
         });
     }
 

@@ -11,10 +11,12 @@ import PrimaryNavbar    from './Navbars/PrimaryNavbar.jsx';
 import HomeContainer    from "./Containers/HomeContainer.jsx";
 import ProfileContainer from "./Containers/ProfileContainer.jsx";
 import LibraryContainer from "./Containers/LibraryContainer.jsx";
+import NewBookContainer from "./Containers/NewBookContainer.jsx"
 
 //Modals
 import NewUserModal     from "./Modals/NewUserModal.jsx";
-import NewBookModal     from "./Modals/NewBookModal.jsx";
+import NewBookModalStep1     from "./Modals/NewBookModalStep1.jsx";
+import NewBookModalStep2     from "./Modals/NewBookModalStep2.jsx";
 import LoginUserModal   from "./Modals/LoginUserModal.jsx";
 
 
@@ -92,7 +94,7 @@ class ReactContainer extends React.Component{
                     }
                 </header>
                     <NewUserModal />
-                    <NewBookModal />
+                    <NewBookContainer />
                     <LoginUserModal getUser={ this._getUser.bind(this) } />
                     
 
