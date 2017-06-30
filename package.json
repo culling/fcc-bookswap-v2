@@ -8,7 +8,7 @@
     "postinstall": "bower install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "vsc-config-mongo": "mkdir data && echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest \"$@\"'",
-    "vsc-run-mongo": "mongod --port 27017 --dbpath=./data",
+    "vsc-run-mongo": "mongod --port 27017 --dbpath=./data --smallfiles",
     "vsc-mongo": "npm run vsc-run-mongo",
     "heroku-create-app": "heroku login && heroku create",
     "heroku-config-mongo": "heroku addons:create mongolab:sandbox",
