@@ -70,10 +70,10 @@ class NewBookModalStep1 extends React.Component{
         var formDataSerializedArray = jQuery("#NewBookForm").serializeArray();
         var formDataObject = this._objectifyForm(formDataSerializedArray);
         //formDataObject.owner = this.props.user._id;
-        jQuery("#bookName")
+        jQuery("#title")
                 .val("");
         
-        this.props.setNewBookName(formDataObject);
+        this.props.setNewBookTitle(formDataObject);
 
 
         /*
@@ -102,8 +102,8 @@ class NewBookModalStep1 extends React.Component{
 
                             <div className="input-field">
                                 <i className="material-icons prefix">assignment_ind</i>
-                                <input type="text" name="bookName" id="bookName" required />
-                                <label htmlFor="bookName" >Book Name </label>
+                                <input type="text" name="title" id="title" required />
+                                <label htmlFor="title" >Book Name </label>
                             </div>
 
 

@@ -3,6 +3,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 
+import NewBookCard     from "./../Cards/NewBookCard.jsx";
+
 class NewBookModalStep2 extends React.Component{
     constructor(props){
         super(props);
@@ -93,12 +95,9 @@ class NewBookModalStep2 extends React.Component{
                     <div className="modal-content">
                         <h4>New Book - Step 2</h4>
 
-                            <div className="input-field">
-                                <i className="material-icons prefix">assignment_ind</i>
-                                <input type="text" name="bookName" id="bookName" required />
-                                <label htmlFor="bookName" >Book Name </label>
-                            </div>
-
+                        {this.props.foundBooks.map((foundBook, i)=>{
+                            return (<NewBookCard key={i} googleBook={foundBook} />)
+                        })}
 
                     </div>
                     <div className="modal-footer">

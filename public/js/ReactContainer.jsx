@@ -15,8 +15,6 @@ import NewBookContainer from "./Containers/NewBookContainer.jsx"
 
 //Modals
 import NewUserModal     from "./Modals/NewUserModal.jsx";
-import NewBookModalStep1     from "./Modals/NewBookModalStep1.jsx";
-import NewBookModalStep2     from "./Modals/NewBookModalStep2.jsx";
 import LoginUserModal   from "./Modals/LoginUserModal.jsx";
 
 

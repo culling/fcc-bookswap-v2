@@ -2,8 +2,8 @@ import React from 'react';
 import {render} from 'react-dom';
 
 
-import NewBookModalStep1     from "./../Modals/NewBookModalStep1.jsx";
-import NewBookModalStep2     from "./../Modals/NewBookModalStep2.jsx";
+import NewBookModalStep1     from "./NewBookContainer/Modals/NewBookModalStep1.jsx";
+import NewBookModalStep2     from "./NewBookContainer/Modals/NewBookModalStep2.jsx";
 
 class NewBookContainer extends React.Component{
 
@@ -11,11 +11,12 @@ class NewBookContainer extends React.Component{
         super(props);
 
         this.state = {
-            newBookName: ""
+            newBookTitle: "",
+            foundBooks: []
         }
 
         //Binding to this for functions
-        this._setNewBookName = this._setNewBookName.bind(this);
+        this._setNewBookTitle = this._setNewBookTitle.bind(this);
     };
 
     componentWillMount(){
@@ -30,23 +31,50 @@ class NewBookContainer extends React.Component{
         //socket.removeListener('new state');
    }
 
-    _setNewBookName(bookSearch){
+    _setNewBookTitle(bookSearch){
+        var _this = this;
         console.log("Set New Book Name called");
-        var newBookName = bookSearch.newBookName;
-        this.setState({newBookName: newBookName});
+        var newBookTitle = bookSearch.title;
+        this.setState({newBookTitle: newBookTitle});
+        console.log(newBookTitle);
+        
+        jQuery.ajax({
+            method: 'GET',
+            url:("/api/book"),
+            data: {"title": newBookTitle},
+            success: (rawResult)=>{
+                //console.log(rawResult)
+
+                var resultObject = JSON.parse(rawResult);
+                var booksArray = resultObject.items
+                if (booksArray.length > 0 ){
+                    //console.log(booksArray );
+                    var filteredBooksArray = booksArray.filter((foundBook) => {
+                        //console.log(foundBook.volumeInfo.imageLinks)
+                        return (foundBook.volumeInfo.imageLinks !== undefined)
+                    });
+                    console.log(filteredBooksArray);
+                    _this.setState({"foundBooks": filteredBooksArray});
+                    jQuery("#new-book-modal-step2").modal("open");
+                    
+                }
+                
+           }
+        });
+        
 
         
 
 
-        jQuery("#new-book-modal-step2").modal("open");        
+        
     }
 
 
     render(){
         return(
             <div id="new-book-container" className="new-book-container">
-                    <NewBookModalStep1 setNewBookName={ this._setNewBookName.bind(this) } />
-                    <NewBookModalStep2 newBookName={this.state.newBookName} />
+                    <NewBookModalStep1 setNewBookTitle={ this._setNewBookTitle.bind(this) } />
+                    <NewBookModalStep2 foundBooks={this.state.foundBooks} />
 
             </div>
         )

@@ -12,8 +12,8 @@ var config      = require("./../../config/config");
 var mongoExport = require("./../../config/mongo");
 
 //Controllers
-// var userController  = require("./../controllers/user.controller.server.js");
-
+// var userController   = require("./../controllers/user.controller.server.js");
+var bookController      = require("./../controllers/book.controller.server.js");
 
 
 function clean(obj){
@@ -27,12 +27,12 @@ function clean(obj){
 
 
 //Books
-router.get("/book", function(req, res){
+router.get("/", function(req, res){
     console.log("/api/book hit" );
     //console.log( req.query);
 
     if(req.query.title){
-        books.lookup(req.query.title, function(found){
+        bookController.lookup(req.query.title, function(found){
             //res.send(found);
             res.write( JSON.stringify( JSON.parse(found), null, "\t") );
             res.end();
@@ -42,11 +42,11 @@ router.get("/book", function(req, res){
     }
 });
 
-router.post("/book", function(req, res){
+router.post("/", function(req, res){
     var book = req.body ; 
     book.owner = req.user;
     //console.log(book );
-    books.create(book);
+    bookController.create(book);
     res.write("Sent");
     res.end();
 });
