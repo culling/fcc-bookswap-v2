@@ -74,23 +74,6 @@ class NewBookModalStep1 extends React.Component{
                 .val("");
         
         this.props.setNewBookTitle(formDataObject);
-
-
-        /*
-        console.log(JSON.stringify( formDataObject ));
-        jQuery.ajax({
-            type: "POST",
-            url: "/api/book",
-            data: JSON.stringify(formDataObject ),
-            success: function(){
-                console.log("Success");
-                //_this._getUser();
-                //_this._sendUserMessage(userMessage);
-            },
-            dataType: "text",
-            contentType : "application/json"
-        });
-        */
     }
 
     render(){
@@ -101,9 +84,9 @@ class NewBookModalStep1 extends React.Component{
                         <h4>New Book</h4>
 
                             <div className="input-field">
-                                <i className="material-icons prefix">assignment_ind</i>
+                                <i className="fa fa-book prefix"></i>
                                 <input type="text" name="title" id="title" required />
-                                <label htmlFor="title" >Book Name </label>
+                                <label htmlFor="title" >Book Title </label>
                             </div>
 
 
