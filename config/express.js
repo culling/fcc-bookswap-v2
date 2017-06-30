@@ -65,6 +65,9 @@ module.exports  = function(){
     var api = require("./../app/routes/api.route.server");
     app.use("/api", api);
     */
+    var book = require("./../app/routes/book.api.route.server");
+    app.use("/api/book", book);
+
     var user = require("./../app/routes/user.api.route.server");
     app.use("/api/user", user);
 

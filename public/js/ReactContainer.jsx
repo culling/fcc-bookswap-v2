@@ -10,10 +10,11 @@ import PrimaryNavbar    from './Navbars/PrimaryNavbar.jsx';
 //Containers
 import HomeContainer    from "./Containers/HomeContainer.jsx";
 import ProfileContainer from "./Containers/ProfileContainer.jsx";
-//import BoardContainer   from "./Containers/BoardContainer.jsx";
+import LibraryContainer from "./Containers/LibraryContainer.jsx";
 
 //Modals
 import NewUserModal     from "./Modals/NewUserModal.jsx";
+import NewBookModal     from "./Modals/NewBookModal.jsx";
 import LoginUserModal   from "./Modals/LoginUserModal.jsx";
 
 
@@ -91,7 +92,9 @@ class ReactContainer extends React.Component{
                     }
                 </header>
                     <NewUserModal />
+                    <NewBookModal />
                     <LoginUserModal getUser={ this._getUser.bind(this) } />
+                    
 
                     {(this.state.activeContainer === "#home-container")&&
                     <HomeContainer          user={this.state.user} twitterUser={this.state.twitterUser} />
@@ -99,11 +102,11 @@ class ReactContainer extends React.Component{
                     {(this.state.activeContainer === "#profile-container")&&
                     <ProfileContainer       user={this.state.user} getUser={ this._getUser.bind(this) } />
                     }
-                    {/*(this.state.activeContainer === "#myBoard-container")&&
-                    <div id="myBoard-container" >
-                        <BoardContainer     user={this.state.user} filterUser={this.state.user} />
+                    {(this.state.activeContainer === "#myLibrary-container")&&
+                    <div id="myLibrary-container" >
+                        <LibraryContainer     user={this.state.user} filterUser={this.state.user} />
                     </div>
-                    */}
+                    }
                     {/*(this.state.activeContainer === "#allBoard-container")&&
                     <div id="allBoard-container" >
                         <BoardContainer     user={this.state.user}  filterUser={{username:null, type:"all"}}/>
