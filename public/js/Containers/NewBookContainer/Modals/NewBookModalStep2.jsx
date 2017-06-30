@@ -58,36 +58,6 @@ class NewBookModalStep2 extends React.Component{
     //End _sendUserMessage
 
 
-    _submitClicked(event){
-        event.preventDefault();
-        console.log("Submit Clicked");
-
-        let _this = this;
-        var userMessage = {user:  this.props.user,
-            message: "New user created"
-        };
-        
-        var formDataSerializedArray = jQuery("#NewBookForm").serializeArray();
-        var formDataObject = this._objectifyForm(formDataSerializedArray);
-        //formDataObject.owner = this.props.user._id;
-        jQuery("#bookName")
-                .val("");
-
-        console.log(JSON.stringify( formDataObject ));
-        jQuery.ajax({
-            type: "POST",
-            url: "/api/book",
-            data: JSON.stringify(formDataObject ),
-            success: function(){
-                console.log("Success");
-                //_this._getUser();
-                //_this._sendUserMessage(userMessage);
-            },
-            dataType: "text",
-            contentType : "application/json"
-        });
-    }
-
     render(){
         return(
             <div id="new-book-modal-step2" className="modal">
@@ -101,7 +71,7 @@ class NewBookModalStep2 extends React.Component{
 
                     </div>
                     <div className="modal-footer">
-                        <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this._submitClicked.bind(this)}>Submit</a>
+
                         <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
                     </div>
                 </form>

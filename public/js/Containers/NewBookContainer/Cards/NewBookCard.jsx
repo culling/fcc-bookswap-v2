@@ -56,6 +56,21 @@ class NewBookCard extends React.Component{
         console.log("Google book Details");
         console.log(this.props.googleBook);
 
+        jQuery.ajax({
+            type: "POST",
+            url: "/api/book",
+            data: JSON.stringify(this.props.googleBook),
+            success: function(){
+                console.log("Success");
+                //_this._getUser();
+                //_this._sendUserMessage(userMessage);
+                Materialize.toast('Book Added to Your Library', 4000);
+                jQuery("#new-book-modal-step2").modal("close");
+            },
+            dataType: "text",
+            contentType : "application/json"
+        });
+
     }
 
 

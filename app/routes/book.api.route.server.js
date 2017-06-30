@@ -27,6 +27,16 @@ function clean(obj){
 
 
 //Books
+router.get("/all", function(req, res){
+    console.log("/api/book/all hit" );
+    //console.log( req.query);    
+    bookController.lookupAll(function(found){
+        res.write( JSON.stringify( found, null, "\t") );
+        res.end();
+    });
+
+});
+
 router.get("/", function(req, res){
     console.log("/api/book hit" );
     //console.log( req.query);
