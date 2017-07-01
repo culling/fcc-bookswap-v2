@@ -55,18 +55,22 @@ class PrimaryNavbar extends React.Component{
 
     _logoutClicked(){
         console.log("logout Clicked");
-    }
+    };
 
     _myLibraryClicked(){
         console.log("My Library Clicked");
         this._showContainer("#myLibrary-container");
-    }
+    };
 
     _allLibraryClicked(){
         console.log("Whole Library Clicked");
         this._showContainer("#allLibrary-container");
-    }
+    };
 
+    _tradesClicked(){
+        console.log("Trades Clicked");
+        this._showContainer("#trades-container");
+    }
 
     render(){
         return(
@@ -76,12 +80,14 @@ class PrimaryNavbar extends React.Component{
                         <a href="#" data-activates="mobile-menu" className="button-collapse"><i className="material-icons">menu</i></a>
                         <ul className="right hide-on-med-and-down">
                             <li  onClick={ this._homeClicked.bind(this)}><a >Home</a></li>
-                            {(this.props.user && this.props.user.username) && <li  onClick={ this._profileClicked.bind(this)}><a >Profile</a></li>}
+                            {(this.props.user && this.props.user.username) && <li  onClick={ this._profileClicked.bind(this)}><a >Profile </a></li>}
                             {(this.props.user && this.props.user.username) && <li  onClick={ this._newBookClicked.bind(this)}><a >New Book</a></li> }
                             
                             {(this.props.user && this.props.user.username) && <li  onClick={ this._myLibraryClicked.bind(this)}><a >My Library</a></li> }
-                            <li  onClick={ this._allLibraryClicked.bind(this)}><a >Whole Library</a></li>
-                            
+
+                            <li  onClick={ this._allLibraryClicked.bind(this)}><a >Library</a></li>
+                            {(this.props.user && this.props.user.username) && <li  onClick={ this._tradesClicked.bind(this)}><a >Trades</a></li> }
+
                             {( (this.props.user)&& (this.props.user.type) && (this.props.user.type!= "user" ) ) && <li  onClick={ this._loginClicked.bind(this)}><a href="#" >Log In</a></li>}
                             {( (this.props.user)&& (this.props.user.type) && (this.props.user.type!= "user" ) ) && <li  onClick={ this._signupClicked.bind(this)}><a href="#">Sign Up</a></li>}
 
@@ -89,17 +95,18 @@ class PrimaryNavbar extends React.Component{
 
                         </ul>
                         <ul className="side-nav" id="mobile-menu">
-                              <li  onClick={ this._homeClicked.bind(this)}><a >Home</a></li>
-                            {(this.props.user && this.props.user.username) && <li  onClick={ this._profileClicked.bind(this)}><a >Profile</a></li>}
-                            {(this.props.user && this.props.user.username) && <li  onClick={ this._newBookClicked.bind(this)}><a >New Book</a></li> }
+                            <li  onClick={ this._homeClicked.bind(this)}><a >HOME</a></li>
+                            {(this.props.user && this.props.user.username) && <li  onClick={ this._profileClicked.bind(this)}><a >PROFILE</a></li>}
+                            {(this.props.user && this.props.user.username) && <li  onClick={ this._newBookClicked.bind(this)}><a >NEW BOOK</a></li> }
                             
-                            {(this.props.user && this.props.user.username) && <li  onClick={ this._myLibraryClicked.bind(this)}><a >My Library</a></li> }
-                            <li  onClick={ this._allLibraryClicked.bind(this)}><a >Whole Library</a></li>
+                            {(this.props.user && this.props.user.username) && <li  onClick={ this._myLibraryClicked.bind(this)}><a >MY LIBRARY</a></li> }
+                            <li  onClick={ this._allLibraryClicked.bind(this)}><a >LIBRARY</a></li>
+                            {(this.props.user && this.props.user.username) && <li  onClick={ this._tradesClicked.bind(this)}><a >TRADES</a></li> }
 
-                            {( (this.props.user)&& (this.props.user.type) && (this.props.user.type!= "user" ) ) && <li  onClick={ this._loginClicked.bind(this)}><a href="#" >Log In</a></li>}
-                            {( (this.props.user)&& (this.props.user.type) && (this.props.user.type!= "user" ) ) && <li  onClick={ this._signupClicked.bind(this)}><a href="#">Sign Up</a></li>}
+                            {( (this.props.user)&& (this.props.user.type) && (this.props.user.type!= "user" ) ) && <li  onClick={ this._loginClicked.bind(this)}><a href="#" >LOG IN</a></li>}
+                            {( (this.props.user)&& (this.props.user.type) && (this.props.user.type!= "user" ) ) && <li  onClick={ this._signupClicked.bind(this)}><a href="#">SIGN UP</a></li>}
 
-                            {(this.props.user && this.props.user.username) && <li  onClick={ this._logoutClicked.bind(this)}><a href="/logout">Log Out</a></li>}
+                            {(this.props.user && this.props.user.username) && <li  onClick={ this._logoutClicked.bind(this)}><a href="/logout">LOG OUT</a></li>}
 
 
                         </ul>

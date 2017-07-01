@@ -11,7 +11,8 @@ import PrimaryNavbar    from './Navbars/PrimaryNavbar.jsx';
 import HomeContainer    from "./Containers/HomeContainer.jsx";
 import ProfileContainer from "./Containers/ProfileContainer.jsx";
 import LibraryContainer from "./Containers/LibraryContainer.jsx";
-import NewBookContainer from "./Containers/NewBookContainer.jsx"
+import NewBookContainer from "./Containers/NewBookContainer.jsx";
+import TradesContainer  from "./Containers/TradesContainer.jsx";
 
 //Modals
 import NewUserModal     from "./Modals/NewUserModal.jsx";
@@ -28,7 +29,8 @@ class ReactContainer extends React.Component{
                 "#home-container",
                 "#profile-container",
                 "#myLibrary-container",
-                "#allLibrary-container"
+                "#allLibrary-container",
+                "#trades-container"
             ]
 
         }
@@ -110,6 +112,11 @@ class ReactContainer extends React.Component{
                     {(this.state.activeContainer === "#allLibrary-container")&&
                     <div id="allLibrary-container" >
                         <LibraryContainer     user={this.state.user}  filterUser={{username:null, type:"all"}}/>
+                    </div>
+                    }
+                    {(this.state.activeContainer === "#trades-container")&&
+                    <div id="trades-container" >
+                        <TradesContainer     user={this.state.user}  filterUser={{username:null, type:"all"}}/>
                     </div>
                     }
 
