@@ -5,8 +5,10 @@ var https = require("https");
 var config      = require("./../../config/config");
 var mongoExport = require("./../../config/mongo");
 
+
+//Models
 var UserModel   = mongoExport.users.UserModel;
-//var Users       = mongoExport.users;
+
 
 function clean(obj){
     for (var propName in obj){
@@ -51,11 +53,12 @@ exports.updatePassword  = function(user, done){
 };
 
 exports.update = function(user, done){
-    console.log(user);
+    //console.log(user);
     console.log("Update on UserController called");
     UserModel.update({"username": user.username},
         user, function(err, response){
             if (err){
+                console.error(err);
                 //return next (err);
                 done(err, null)
             } else {
@@ -66,9 +69,8 @@ exports.update = function(user, done){
 }
 
 exports.create  = function(user){
-    console.log("Create Called");
-    console.log(user);
+    console.log("Create User Called - user.controller.server.js");
+    //console.log(user);
     var newUser = new UserModel(user);
-    
     newUser.save();
 };

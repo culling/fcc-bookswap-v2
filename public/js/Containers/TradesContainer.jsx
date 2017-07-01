@@ -29,17 +29,11 @@ class TradesContainer extends React.Component{
     }
 
     componentDidMount(){
-        /*
-        socket.on('new state', function(newState) {
-            console.log("new state found");
-            //this.setState(newState);
-            this._getLibraryContentsAllUsers();
-        }.bind(this));
-        */
+
     }
 
     componentWillUnmount(){
-        //socket.removeListener('new state');
+
     }
 
 
@@ -101,6 +95,7 @@ class TradesContainer extends React.Component{
         return(
             <div>
                 <div>
+                    <br />
                     <b>Approve Trade Requests</b>
                     {this.state.myTradeRequests.map((book, i )=>{
                         return(
@@ -116,6 +111,7 @@ class TradesContainer extends React.Component{
                     } )}
                 </div>
 
+                <br />
                 <div>
                     <b>Waiting for Approval</b>
                     {this.state.otherTradeRequests.map((book, i )=>{

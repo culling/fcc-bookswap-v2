@@ -138,11 +138,10 @@ class ReactContainer extends React.Component{
         return(
             <div>
                 <header>
-                <b>My Bookswap</b>
                 <PrimaryNavbar user={this.state.user} setActiveContainer={  this._setActiveContainer.bind(this) } />
                     {this.state.user &&
                         <div>
-                            <b>Current User {this.state.user.username}</b>
+                            <p className="subtle-debug">Current User {this.state.user.username}</p>
                         </div>
                     }
                 </header>

@@ -65,14 +65,12 @@ exports.update = function(book, done){
         book,
         function(err, updatedBook){
             if (err){
-                //return next (err);
+                console.error(err);
                 done(err)
             } else {
                 console.log("Updated Book");
-                console.log(updatedBook);
+                //console.log(updatedBook);
                 done(null, updatedBook);
-                //res.write("finished");
-                //res.end();
             }
         }
     )

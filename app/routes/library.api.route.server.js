@@ -14,7 +14,6 @@ var config      = require("./../../config/config");
 var mongoExport = require("./../../config/mongo");
 
 //Controllers
-// var userController   = require("./../controllers/user.controller.server.js");
 var bookController      = require("./../controllers/book.controller.server.js");
 
 
@@ -29,11 +28,8 @@ function clean(obj){
 
 router.get("/", function(req, res){
     console.log("Library Route hit");
-
-
     var libraryForUser = req.query.username ;
-    
-    console.log(libraryForUser);
+    //console.log(libraryForUser);
 
     bookController.lookupAll(function(foundBooks){
         var filteredBooks = foundBooks;

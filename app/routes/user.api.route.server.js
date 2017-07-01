@@ -41,20 +41,26 @@ router.post("/messages", function(req, res){
     userController.getUserByUsername(user.username, function(err, foundUser){
         if(err)console.error(err);
         //console.log(foundUser);
-        
+        if(foundUser.messages.indexOf(message) >= 0){
+                res.write("message already exists in que");
+                res.end();
+                return;
+        }
+
         var newUserObject = foundUser;
         newUserObject.messages.push(message );
         userController.update(newUserObject,
             function(err, updatedUser){
             if (err){
-                return next (err);
+                console.error(err);
+                res.write("error submitting message - update user");
+                res.end();
             } else {
                 res.write("finished");
                 res.end();
             }
-        })
-         
-    } );
+        });
+    });
 });
 
 
@@ -65,8 +71,8 @@ router.delete("/messages", function(req, res){
     var message = userMessage.message;
     userController.getUserByUsername(user.username, function(err, foundUser){
         if(err)console.error(err);
-        console.log(foundUser);
-        console.log(message);
+        //console.log(foundUser);
+        //console.log(message);
         var newUserObject = foundUser;
         newUserObject.messages = newUserObject.messages.filter(currentMessage => {
             return (currentMessage != message)

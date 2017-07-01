@@ -5,7 +5,6 @@ var config  = require("./../../config/config");
 //Crypto 
 var crypto      = require('crypto');
 
-
 // mongo
 var mongo               = require("mongodb").MongoClient;
 var mongoUrl            = config.mongoUrl;
@@ -26,17 +25,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 //Define a schema
 var Schema = mongoose.Schema;
-/*
-var UserSchema = new Schema({
-    twitterId           : String,
-    username            : String,
-    displayName         : String,
-    profileImageUrl     : String,
-    email               : String,
-    messages            : Array,
-    wallPosts           : [{type: Schema.Types.ObjectId, ref: "Post" }]
-});
-*/
+
 
 var UserSchema = new Schema({
     username            : {
@@ -79,15 +68,10 @@ UserSchema.methods.authenticate = function(password){
 };
 
 
-
-
 UserSchema.methods.validatePassword = function(password){
     var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
     return this.hash === hash;
 };
-
-
-
 
 
 // Compile model from schema

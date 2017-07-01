@@ -20,17 +20,12 @@ router.post('/login',
   function(req, res) {
     var status = 202;
     res.status(status).end(http.STATUS_CODES[status]);
-    //res.redirect('/');
 });
-
-
 
 router.get('/logout',
   function(req, res){
     req.logout();
     res.redirect('/');
 });
-
-
 
 module.exports = router;

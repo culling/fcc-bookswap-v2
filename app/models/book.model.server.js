@@ -2,9 +2,6 @@
 
 var config  = require("./../../config/config");
 
-//Other Models
-var mongoExport = require("./../../config/mongo");
-var UserModel   = mongoExport.users.UserModel;
 
 // mongo
 var mongo               = require("mongodb").MongoClient;
@@ -49,22 +46,3 @@ var BookSchema = new Schema({
 // Compile model from schema
 var BookModel       = mongoose.model('Book', BookSchema );
 exports.BookModel   = BookModel;
-
-/*
-exports.findAll = function(cb){
-    BookModel.find()
-	.populate("owner")
-    .exec(
-        function(err, results){
-            if(err) return handleError(err);
-            cb(results);
-        }
-    );
-};
-
-exports.updateBook = function(book){
-	BookModel.findOne({ _id: book._id }, function (err, doc){
-		doc.save();
-	});
-}
-*/

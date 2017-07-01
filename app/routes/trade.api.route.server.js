@@ -14,20 +14,17 @@ var config      = require("./../../config/config");
 var mongoExport = require("./../../config/mongo");
 
 //Controllers
-
 var bookController      = require("./../controllers/book.controller.server.js");
 
 
 router.post("/", function(req, res){
     console.log("/API/trade hit")
-
     var book = req.body;
-    //var userRequestingTrade = req.user;
 
     //console.log("From User");
     //console.log(userRequestingTrade );
-    console.log("Book");
-    console.log(book);
+    //console.log("Book");
+    //console.log(book);
 
     //book.usersRequestingTrade.push( usersRequestingTrade );
     bookController.update(book,function(err, updatedBook){
