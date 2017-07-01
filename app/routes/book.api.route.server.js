@@ -1,3 +1,5 @@
+"use strict";
+
 const url           = require("url");
 const querystring   = require('querystring');
 var passport        = require("passport");
