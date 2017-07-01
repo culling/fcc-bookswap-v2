@@ -55,7 +55,14 @@ class NewBookCard extends React.Component{
         console.log("Add to Library Clicked");
         console.log("Google book Details");
         console.log(this.props.googleBook);
+        console.log(this.props.user);
+        
+        var _this = this;
+        var userMessage = {user:  this.props.user,
+            message: "New Book added"
+        };
 
+        
         jQuery.ajax({
             type: "POST",
             url: "/api/book",
@@ -66,6 +73,8 @@ class NewBookCard extends React.Component{
                 //_this._sendUserMessage(userMessage);
                 Materialize.toast('Book Added to Your Library', 4000);
                 jQuery("#new-book-modal-step2").modal("close");
+                _this._sendUserMessage(userMessage);
+
             },
             dataType: "text",
             contentType : "application/json"
@@ -76,7 +85,7 @@ class NewBookCard extends React.Component{
 
     render(){
         return (
-            <div id="tradeRequest-card">
+            <div id="new-book-card">
                 <div className="card horizontal">
                     <div className="card-image">
                         <img src={this.props.googleBook.volumeInfo.imageLinks.thumbnail} 
@@ -84,7 +93,7 @@ class NewBookCard extends React.Component{
                             className="book-smallThumbnail"
                         />
                     </div>
-                    <div className="card-stacked" id="tradeRequest-card-text">
+                    <div className="card-stacked" id="new-book-card-text">
                         <div className="card-content" >
 
                             <div><b>{this.props.googleBook.volumeInfo.title}</b></div>

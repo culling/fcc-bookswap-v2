@@ -80,7 +80,7 @@ class NewUserModal extends React.Component{
             success: function(){
                 console.log("Success");
                 //_this._getUser();
-                //_this._sendUserMessage(userMessage);
+                _this._sendUserMessage(userMessage);
             },
             dataType: "text",
             contentType : "application/json"

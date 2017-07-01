@@ -49,6 +49,8 @@ class ReactContainer extends React.Component{
         socket.on('new state', function(newState) {
             console.log("new state found");
             //this.setState(newState);
+
+            this._getUser();
         }.bind(this));
     }
 
@@ -94,7 +96,7 @@ class ReactContainer extends React.Component{
                     }
                 </header>
                     <NewUserModal />
-                    <NewBookContainer />
+                    <NewBookContainer user={this.state.user}  />
                     <LoginUserModal getUser={ this._getUser.bind(this) } />
                     
 

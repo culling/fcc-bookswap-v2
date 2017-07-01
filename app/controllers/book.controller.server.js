@@ -33,9 +33,16 @@ exports.create  = function(rawBookObject){
 
     //Find the ISBN Numbers
     var isbnObjects = rawBookObject.volumeInfo.industryIdentifiers;
-    var ISBN_13 = isbnObjects.filter((isbnObject)=> { return isbnObject.type === "ISBN_13"} )[0];
-    var ISBN_10 = isbnObjects.filter((isbnObject)=> { return isbnObject.type === "ISBN_10"} )[0];
-    
+    var ISBN_13 = "";
+    var ISBN_10 = "";
+    if(isbnObjects){
+        if(isbnObjects.type === "ISBN_13"){
+            ISBN_13 = isbnObjects.filter((isbnObject)=> { return isbnObject.type === "ISBN_13"} )[0].identifier || "";
+        }
+        if(isbnObjects.type === "ISBN_10"){
+            ISBN_10 = isbnObjects.filter((isbnObject)=> { return isbnObject.type === "ISBN_10"} )[0].identifier || "";
+        }
+    }
 
 
     if(rawBookObject.owner){
@@ -44,8 +51,8 @@ exports.create  = function(rawBookObject){
             title: rawBookObject.volumeInfo.title ,
             owner: rawBookObject.owner._id,
             thumbnailUrl: rawBookObject.volumeInfo.imageLinks.smallThumbnail ,
-            ISBN_13: ISBN_13.identifier ,
-            ISBN_10: ISBN_10.identifier
+            ISBN_13: ISBN_13,
+            ISBN_10: ISBN_10
         }
         var newBook = new BookModel(book);
         //console.log(newBook);

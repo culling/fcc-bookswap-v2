@@ -23,11 +23,23 @@ class LibraryContainer extends React.Component{
         this._getLibraryContents(this.props.filterUser);
     }
 
+    componentDidMount(){
+        socket.on('new state', function(newState) {
+            console.log("new state found");
+            //this.setState(newState);
+
+            this._getLibraryContents(this.props.filterUser);
+        }.bind(this));    
+    }
+
+    componentWillUnmount(){
+        socket.removeListener('new state');
+    }
+
     _sendUserMessage(newStateDiff) {
         this.sendUserMessageToDB(newStateDiff);
         // 2. put diffs onto the websocket
         this.postToSocket(newStateDiff);
-
     }
 
     postToSocket(newStateDiff) {
@@ -94,9 +106,10 @@ class LibraryContainer extends React.Component{
                 <b> Whole Library </b>
             }
 
-            <div className="row">
+
+
             {(this.state.books.length > 0) && 
-                <div id="library-books">
+                <div id="library-books" className="row library-books">
                     {this.state.books.map((book, i)=> {
                         return(
                         <BookCard key={i} user={this.props.user} book={book} />
@@ -104,7 +117,8 @@ class LibraryContainer extends React.Component{
                     })}
                 </div>
             }
-            </div>
+
+
         </div>
         )
     };

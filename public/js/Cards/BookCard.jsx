@@ -5,7 +5,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-class NewBookCard extends React.Component{
+class BookCard extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -81,7 +81,7 @@ class NewBookCard extends React.Component{
 
     render(){
         return (
-            <div id="book-card" className="col s12 m12 l6 xl6">
+            <div id="book-card" className="col s12 m6 l6 xl6">
                 <div className="card horizontal">
                     <div className="card-image">
                         <img src={this.props.book.thumbnailUrl} 
@@ -114,4 +114,4 @@ class NewBookCard extends React.Component{
 }
 
 
-export default NewBookCard;
+export default BookCard;

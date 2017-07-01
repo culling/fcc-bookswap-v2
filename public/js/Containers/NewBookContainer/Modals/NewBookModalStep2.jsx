@@ -66,7 +66,7 @@ class NewBookModalStep2 extends React.Component{
                         <h4>New Book - Step 2</h4>
 
                         {this.props.foundBooks.map((foundBook, i)=>{
-                            return (<NewBookCard key={i} googleBook={foundBook} />)
+                            return (<NewBookCard key={i} googleBook={foundBook} user={this.props.user} />)
                         })}
 
                     </div>

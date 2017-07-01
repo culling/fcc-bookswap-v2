@@ -73,8 +73,8 @@ class NewBookContainer extends React.Component{
     render(){
         return(
             <div id="new-book-container" className="new-book-container">
-                    <NewBookModalStep1 setNewBookTitle={ this._setNewBookTitle.bind(this) } />
-                    <NewBookModalStep2 foundBooks={this.state.foundBooks} />
+                    <NewBookModalStep1 setNewBookTitle={ this._setNewBookTitle.bind(this) } user={this.props.user} />
+                    <NewBookModalStep2 foundBooks={this.state.foundBooks} user={this.props.user} />
 
             </div>
         )

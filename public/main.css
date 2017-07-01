@@ -7,3 +7,16 @@ nav{
 .book-smallThumbnail{
   height: 10em;
 }
+
+.book-card{
+    position: relative;
+    width: 360px;
+    margin:20px;
+    padding: 20px;
+    transition: box-shadow 300ms;
+
+}
+
+.library-books{
+    column-gap: 1em;
+}
