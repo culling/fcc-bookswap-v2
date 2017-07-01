@@ -39,8 +39,16 @@ var UserSchema = new Schema({
 */
 
 var UserSchema = new Schema({
-    username            : String,
-    password            : String,
+    username            : {
+        type: String,
+        unique: true,
+        required: true
+    },
+    password            : {
+        type: String,
+        unique: true,
+        required: true
+    },
     email               : String,
     salt                : String,
     firstName           : String,

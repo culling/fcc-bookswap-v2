@@ -51,11 +51,8 @@ class ReactContainer extends React.Component{
             this._getUser();
             //this._displayToasts(newState);
         }.bind(this));
-
         //this._displayToasts();
     };
-
-
 
     componentWillUnmount(){
         socket.removeListener('new state');
@@ -82,12 +79,12 @@ class ReactContainer extends React.Component{
         console.log("display toasts called");
         var _this = this;
             if(
-                this.state.user && this.state.user.username 
+                _this.state.user && _this.state.user.username 
             ){
 
-                if (this.state.user.messages.length > 0){
-                    console.log(this.state.user);
-                    this.state.user.messages.map( (message) => {
+                if (_this.state.user.messages.length > 0){
+                    console.log(_this.state.user);
+                    _this.state.user.messages.map( (message) => {
                         
                         Materialize.toast(message, 4000,'' , function(){
                             _this._dismissMessage(message);

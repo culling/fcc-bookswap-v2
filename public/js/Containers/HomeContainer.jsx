@@ -22,15 +22,17 @@ class HomeContainer extends React.Component{
    }
 
    componentDidMount(){   
+       /*
         socket.on('new state', function(newState) {
             console.log("new state found");
             //this.setState(newState);
 
         }.bind(this));
+        */
    }
 
    componentWillUnmount(){
-        socket.removeListener('new state');
+        //socket.removeListener('new state');
    }
 
     render(){

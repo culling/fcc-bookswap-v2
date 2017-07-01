@@ -59,9 +59,10 @@ class TradeRequestPendingCard extends React.Component{
 
     _promptForTradeRequestYesClick(book){
         console.log("promptForTradeRequestYesClick");
+        console.log(this.props.userRequestingTrade);
 
-
-        book.owner = this.props.user ;
+        //book.owner = this.props.user ;
+        book.owner = this.props.userRequestingTrade;
         book.usersRequestingTrade = [];
 
         //Message stuff

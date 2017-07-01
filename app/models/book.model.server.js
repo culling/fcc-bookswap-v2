@@ -2,11 +2,12 @@
 
 var config  = require("./../../config/config");
 
+//Other Models
+var mongoExport = require("./../../config/mongo");
+var UserModel   = mongoExport.users.UserModel;
+
 // mongo
 var mongo               = require("mongodb").MongoClient;
-var mongoPort           = config.mongoPort;
-var mongoDatabase       = config.mongoDatabase;
-//var collectionName      = "users";
 var mongoUrl            = process.env.MONGODB_URI //|| `mongodb://localhost:${mongoPort}/${mongoDatabase}`;
 
 // Mongoose
@@ -28,11 +29,19 @@ var Schema = mongoose.Schema;
 
 var BookSchema = new Schema({
     authors: Array,
-    title: String,
-    owner: {type: Schema.Types.ObjectId, ref: "User" },
-    thumbnailUrl: String,
-    ISBN_13: String,
-    ISBN_10: String,
+    title: {
+        type: String,
+        required: true
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    thumbnailUrl: {
+        type: String,
+        required: true
+    },
 	usersRequestingTrade: Array
 
 });

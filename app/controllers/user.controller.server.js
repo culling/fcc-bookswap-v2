@@ -56,7 +56,8 @@ exports.update = function(user, done){
     UserModel.update({"username": user.username},
         user, function(err, response){
             if (err){
-                return next (err);
+                //return next (err);
+                done(err, null)
             } else {
                 done();
             }

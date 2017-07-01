@@ -24,16 +24,18 @@ class LibraryContainer extends React.Component{
     }
 
     componentDidMount(){
+        /*
         socket.on('new state', function(newState) {
             console.log("new state found");
             //this.setState(newState);
 
             this._getLibraryContents(this.props.filterUser);
-        }.bind(this));    
+        }.bind(this)); 
+        */   
     }
 
     componentWillUnmount(){
-        socket.removeListener('new state');
+        //socket.removeListener('new state');
     }
 
     _sendUserMessage(newStateDiff) {

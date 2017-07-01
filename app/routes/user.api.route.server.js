@@ -74,7 +74,9 @@ router.delete("/messages", function(req, res){
         userController.update(newUserObject,
             function(err, updatedUser){
             if (err){
-                return next (err);
+                console.error(err);
+                res.write("error found");
+                res.end();
             } else {
                 res.write("finished");
                 res.end();

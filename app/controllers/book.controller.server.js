@@ -31,28 +31,12 @@ exports.lookup = function(title, callback){
 exports.create  = function(rawBookObject){
     console.log("Book - Create Called");
 
-    //Find the ISBN Numbers
-    var isbnObjects = rawBookObject.volumeInfo.industryIdentifiers;
-    var ISBN_13 = "";
-    var ISBN_10 = "";
-    if(isbnObjects){
-        if(isbnObjects.type === "ISBN_13"){
-            ISBN_13 = isbnObjects.filter((isbnObject)=> { return isbnObject.type === "ISBN_13"} )[0].identifier || "";
-        }
-        if(isbnObjects.type === "ISBN_10"){
-            ISBN_10 = isbnObjects.filter((isbnObject)=> { return isbnObject.type === "ISBN_10"} )[0].identifier || "";
-        }
-    }
-
-
     if(rawBookObject.owner){
         var book = {
             authors: rawBookObject.volumeInfo.authors ,
             title: rawBookObject.volumeInfo.title ,
             owner: rawBookObject.owner._id,
-            thumbnailUrl: rawBookObject.volumeInfo.imageLinks.smallThumbnail ,
-            ISBN_13: ISBN_13,
-            ISBN_10: ISBN_10
+            thumbnailUrl: rawBookObject.volumeInfo.imageLinks.smallThumbnail
         }
         var newBook = new BookModel(book);
         //console.log(newBook);
