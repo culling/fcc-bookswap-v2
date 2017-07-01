@@ -20,7 +20,7 @@ class LibraryContainer extends React.Component{
     };
 
     componentWillMount(){
-        this._getLibraryContents(this.props.user);
+        this._getLibraryContents(this.props.filterUser);
     }
 
     _sendUserMessage(newStateDiff) {
@@ -66,7 +66,7 @@ class LibraryContainer extends React.Component{
             url:("/api/library"),
             data: {"username": user.username},
             success: (rawResult)=>{
-                //console.log(rawResult);
+                console.log("got books from library");
                 var booksArray = JSON.parse(rawResult);
                 if (booksArray.length > 0 ){
                     console.log(booksArray );
@@ -94,17 +94,17 @@ class LibraryContainer extends React.Component{
                 <b> Whole Library </b>
             }
 
-
+            <div className="row">
             {(this.state.books.length > 0) && 
                 <div id="library-books">
                     {this.state.books.map((book, i)=> {
                         return(
-                        <BookCard key={i} book={book} />
+                        <BookCard key={i} user={this.props.user} book={book} />
                         )
                     })}
                 </div>
             }
-
+            </div>
         </div>
         )
     };

@@ -29,6 +29,69 @@ function clean(obj){
 
 
 //Send the current user or the IP Address if none logged in
+
+
+router.post("/messages", function(req, res){
+    var userMessage = req.body;
+    console.log("/api/users/messages Hit");
+    //console.log(userMessage);
+    var user = userMessage.user;
+
+    var message = userMessage.message;
+    userController.getUserByUsername(user.username, function(err, foundUser){
+        if(err)console.error(err);
+        //console.log(foundUser);
+        
+        var newUserObject = foundUser;
+        newUserObject.messages.push(message );
+        userController.update(newUserObject,
+            function(err, updatedUser){
+            if (err){
+                return next (err);
+            } else {
+                res.write("finished");
+                res.end();
+            }
+        })
+         
+    } );
+});
+
+
+router.delete("/messages", function(req, res){
+    var userMessage = req.body;
+    console.log("/api/users/messages Hit");
+    var user = userMessage.user;
+    var message = userMessage.message;
+    userController.getUserByUsername(user.username, function(foundUser){
+        console.log(foundUser);
+        console.log(message);
+        var newUserObject = foundUser[0];
+        newUserObject.messages = newUserObject.messages.filter(currentMessage => {
+            return (currentMessage != message)
+        });
+        userController.update({"username": newUserObject.username},
+         newUserObject,
+            function(err, updatedUser){
+            if (err){
+                return next (err);
+            } else {
+                res.write("finished");
+                res.end();
+            }
+        }) 
+    } );    
+});
+
+
+router.get('/all', function(req, res){
+    userController.findAll(function(users){
+        res.write(JSON.stringify(users, null, "\t" ));
+        res.end();
+    }) ;
+});
+
+
 router.get("/", function(req, res){
     if(req.user){
         userController.getUserByUsername(req.user.username, function(err, user){
@@ -44,13 +107,6 @@ router.get("/", function(req, res){
     }
 });
 
-
-router.get('/all', function(req, res){
-    userController.findAll(function(users){
-        res.write(JSON.stringify(users, null, "\t" ));
-        res.end();
-    }) ;
-});
 
 router.post("/", function(req, res){
     var newUser = req.body;

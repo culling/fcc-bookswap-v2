@@ -34,7 +34,7 @@ exports.getUserByUsername = function(username, done){
             console.error(err);
             done(err, null);
         };
-        console.log(user);
+        //console.log(user);
         done(null, user);
     });
 }

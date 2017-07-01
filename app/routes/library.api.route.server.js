@@ -32,7 +32,8 @@ router.get("/", function(req, res){
 
 
     var libraryForUser = req.query.username ;
-    //console.log(libraryForUser);
+    
+    console.log(libraryForUser);
 
     bookController.lookupAll(function(foundBooks){
         var filteredBooks = foundBooks;

@@ -53,22 +53,27 @@ class NewBookCard extends React.Component{
 
     _submitTradeRequestClick(){
         console.log("Submit Trade Request Clicked");
+        var book = Object.assign(this.props.book);
         console.log("Book Details");
-        console.log(this.props.book);
+        console.log(book);
+        book.usersRequestingTrade.push( this.props.user );
+        //Message stuff
+        let _this = this;
+        var userMessageToBookOwner = { 
+            user: book.owner,
+            message: "New Trade Request for - "+ book.title
+        };
 
         jQuery.ajax({
-            type: "POST",
-            url: "/api/book",
-            data: JSON.stringify(this.props.book),
-            success: function(){
-                console.log("Success");
-                //_this._getUser();
-                //_this._sendUserMessage(userMessage);
-                //Materialize.toast('Book Added to Your Library', 4000);
-                //jQuery("#new-book-modal-step2").modal("close");
-            },
+            method: 'POST',
+            url:("/api/trade"),
+            data: JSON.stringify(book),
+            contentType: 'application/json', // for request
             dataType: "text",
-            contentType : "application/json"
+            success: function(){
+                _this._sendUserMessage( userMessageToBookOwner );
+                Materialize.toast(`Trade Request Submitted`, 4000);
+            }
         });
 
     }
@@ -76,7 +81,7 @@ class NewBookCard extends React.Component{
 
     render(){
         return (
-            <div id="book-card">
+            <div id="book-card" className="col s12 m12 l6 xl6">
                 <div className="card horizontal">
                     <div className="card-image">
                         <img src={this.props.book.thumbnailUrl} 
@@ -95,8 +100,11 @@ class NewBookCard extends React.Component{
                             }
                         </div>
                         <div className="card-action">
-                            <a href="#" onClick={() => this._submitTradeRequestClick() }> Submit Trade Request </a>
-
+                            {(this.props.user && this.props.user.username && 
+                                this.props.book.owner && this.props.book.owner.username && 
+                                (this.props.user.username !== this.props.book.owner.username)) &&
+                                <a href="#" onClick={() => this._submitTradeRequestClick() }> Submit Trade Request </a>
+                            }
                         </div>
                     </div>
                 </div>

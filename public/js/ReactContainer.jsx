@@ -27,8 +27,8 @@ class ReactContainer extends React.Component{
             containerIds:[
                 "#home-container",
                 "#profile-container",
-                "#myBoard-container",
-                "#allBoard-container"
+                "#myLibrary-container",
+                "#allLibrary-container"
             ]
 
         }
@@ -107,11 +107,11 @@ class ReactContainer extends React.Component{
                         <LibraryContainer     user={this.state.user} filterUser={this.state.user} />
                     </div>
                     }
-                    {/*(this.state.activeContainer === "#allBoard-container")&&
-                    <div id="allBoard-container" >
-                        <BoardContainer     user={this.state.user}  filterUser={{username:null, type:"all"}}/>
+                    {(this.state.activeContainer === "#allLibrary-container")&&
+                    <div id="allLibrary-container" >
+                        <LibraryContainer     user={this.state.user}  filterUser={{username:null, type:"all"}}/>
                     </div>
-                    */}
+                    }
 
 
             </div>

@@ -56,7 +56,6 @@ exports.create  = function(rawBookObject){
 
 exports.lookupAll = function(done){
     console.log("Book - lookupAll Called");
-
     BookModel.find()
 	    .populate("owner")
         .exec(
@@ -65,7 +64,6 @@ exports.lookupAll = function(done){
             done(results);
         }
     );
-
 }
 
 exports.update = function(book, done){

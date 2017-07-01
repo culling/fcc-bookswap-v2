@@ -65,6 +65,10 @@ module.exports  = function(){
     var api = require("./../app/routes/api.route.server");
     app.use("/api", api);
     */
+    
+    var trade = require("./../app/routes/trade.api.route.server");
+    app.use("/api/trade", trade);
+
     var library = require("./../app/routes/library.api.route.server");
     app.use("/api/library", library);
 
@@ -73,6 +77,10 @@ module.exports  = function(){
 
     var user = require("./../app/routes/user.api.route.server");
     app.use("/api/user", user);
+
+    var users = require("./../app/routes/user.api.route.server");
+    app.use("/api/users", users);
+
 
     var index = require("./../app/routes/index.route.server");
     app.use("/", index);
