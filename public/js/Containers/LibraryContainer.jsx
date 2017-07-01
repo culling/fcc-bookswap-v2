@@ -5,7 +5,8 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-
+//Cards
+import BookCard from './../Cards/BookCard.jsx';
 
 class LibraryContainer extends React.Component{
     constructor(props){
@@ -15,8 +16,12 @@ class LibraryContainer extends React.Component{
             user: {},
 
         }
+        //this._getLibraryContents = this._getLibraryContents.bind(this);
     };
 
+    componentWillMount(){
+        this._getLibraryContents(this.props.user);
+    }
 
     _sendUserMessage(newStateDiff) {
         this.sendUserMessageToDB(newStateDiff);
@@ -47,6 +52,32 @@ class LibraryContainer extends React.Component{
     //End _sendUserMessage
 
 
+    _getLibraryContents(user){        
+        //console.log("Get Library Contents");
+        var _this = this;
+        this.setState({"books":[]});
+        
+        if(user.type != "user"){
+            user.username = undefined;
+        }
+
+        jQuery.ajax({
+            method: 'GET',
+            url:("/api/library"),
+            data: {"username": user.username},
+            success: (rawResult)=>{
+                //console.log(rawResult);
+                var booksArray = JSON.parse(rawResult);
+                if (booksArray.length > 0 ){
+                    console.log(booksArray );
+                    _this.setState({"books": booksArray});
+                }
+            },
+            dataType: "text",
+            contentType : "application/json"
+        });
+    }
+
 
 
     render(){
@@ -54,10 +85,24 @@ class LibraryContainer extends React.Component{
         <div>
             <b>Library</b>
             {this.props.filterUser.username &&
-                <b> My Books</b>
+                <div id="my-library">
+                    <b> My Books</b>
+
+                </div>
             }
             {this.props.filterUser.type == "all" &&
                 <b> Whole Library </b>
+            }
+
+
+            {(this.state.books.length > 0) && 
+                <div id="library-books">
+                    {this.state.books.map((book, i)=> {
+                        return(
+                        <BookCard key={i} book={book} />
+                        )
+                    })}
+                </div>
             }
 
         </div>
