@@ -28,13 +28,28 @@ class TradesContainer extends React.Component{
         }
     }
 
+    componentDidMount(){
+        socket.on('new state', function(newState) {
+            console.log("new state found");
+            //this.setState(newState);
+            this._getLibraryContentsAllUsers();
+        }.bind(this));
+    }
+
+    componentWillUnmount(){
+        socket.removeListener('new state');
+    }
+
+
+
+
     _getLibraryContentsAllUsers(){
         var allUsers= {type:"all"};
         this._getLibraryContents(allUsers);
     }
     
     _getLibraryContents(user){        
-
+        var _this = this;
         console.log("Get Library Contents");
         this.setState({"books":[]});
         
@@ -51,27 +66,25 @@ class TradesContainer extends React.Component{
                 var booksArray = JSON.parse(rawResult);
                 if (booksArray.length > 0 ){
                     console.log(booksArray );
-                    this.setState({"books": booksArray});
+                    _this.setState({"books": booksArray});
 
 
                     var myTradeRequests = booksArray.filter(book=>{
-                        return (this.props.user && (book.owner.username == this.props.user.username) && ( book.usersRequestingTrade.length > 0 ) );
+                        return (_this.props.user && (book.owner.username == _this.props.user.username) && ( book.usersRequestingTrade.length > 0 ) );
                     });
-                    this.setState({myTradeRequests: myTradeRequests});
+                    _this.setState({myTradeRequests: myTradeRequests});
 
                     var otherTradeRequests = booksArray.filter(book=>{
                         var usersRequestingTrade = (book.usersRequestingTrade.length > 0 );
-                        var userLoggedIn = (typeof this.props.user.username !== "undefined");
+                        var userLoggedIn = (typeof _this.props.user.username !== "undefined");
                         var thisUserRequestingTrade = book.usersRequestingTrade.filter(user =>{
-                            return (this.props.user && user &&
-                             this.props.user.username && (user.username == this.props.user.username));
+                            return (_this.props.user && user &&
+                             _this.props.user.username && (user.username == _this.props.user.username));
                         });
 
                         return (usersRequestingTrade && userLoggedIn && (thisUserRequestingTrade.length > 0) )
                     });
-                    this.setState({otherTradeRequests: otherTradeRequests});
-
-
+                    _this.setState({otherTradeRequests: otherTradeRequests});
                 }
             },
             dataType: "text",

@@ -63,15 +63,15 @@ router.delete("/messages", function(req, res){
     console.log("/api/users/messages Hit");
     var user = userMessage.user;
     var message = userMessage.message;
-    userController.getUserByUsername(user.username, function(foundUser){
+    userController.getUserByUsername(user.username, function(err, foundUser){
+        if(err)console.error(err);
         console.log(foundUser);
         console.log(message);
-        var newUserObject = foundUser[0];
+        var newUserObject = foundUser;
         newUserObject.messages = newUserObject.messages.filter(currentMessage => {
             return (currentMessage != message)
         });
-        userController.update({"username": newUserObject.username},
-         newUserObject,
+        userController.update(newUserObject,
             function(err, updatedUser){
             if (err){
                 return next (err);

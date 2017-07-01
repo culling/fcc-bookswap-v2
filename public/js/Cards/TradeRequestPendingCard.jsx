@@ -120,15 +120,15 @@ class TradeRequestPendingCard extends React.Component{
     _promptForTradeRequestNoClick(book){
         console.log("promptForTradeRequestNoClick");
         this._cancelTradeRequestFromUser(book, this.props.userRequestingTrade);
-        jQuery("#tradeRequest-card")
-            .attr("class", "div-hidden");
+        //jQuery("#tradeRequest-card")
+        //    .attr("class", "div-hidden");
     }
 
     _promptForTradeRequestCancelClick(book){
         console.log("promptForTradeRequestCancelClick");
         this._cancelTradeRequestFromUser(book, this.props.user );
-        jQuery("#tradeRequest-card")
-            .attr("class", "div-hidden");
+        //jQuery("#tradeRequest-card")
+        //    .attr("class", "div-hidden");
     }
 
 

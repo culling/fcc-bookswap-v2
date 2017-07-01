@@ -48,15 +48,19 @@ class ReactContainer extends React.Component{
     componentDidMount(){
         socket.on('new state', function(newState) {
             console.log("new state found");
-            //this.setState(newState);
-
             this._getUser();
+            //this._displayToasts(newState);
         }.bind(this));
-    }
+
+        //this._displayToasts();
+    };
+
+
 
     componentWillUnmount(){
         socket.removeListener('new state');
     }
+
 
     _getUser(){
         //User
@@ -66,11 +70,61 @@ class ReactContainer extends React.Component{
             success: (user)=>{
                 this.setState({ user: user });
                 console.log(user);
+                this._displayToasts();                
             },
             contentType : "application/json",
             dataType: "JSON"
         });
     };
+
+
+    _displayToasts(){
+        console.log("display toasts called");
+        var _this = this;
+            if(
+                this.state.user && this.state.user.username 
+            ){
+
+                if (this.state.user.messages.length > 0){
+                    console.log(this.state.user);
+                    this.state.user.messages.map( (message) => {
+                        
+                        Materialize.toast(message, 4000,'' , function(){
+                            _this._dismissMessage(message);
+                        });
+                        
+                    });
+                };
+
+        };
+    };
+
+
+    _dismissMessage(message){
+        console.log("Dismiss Message Clicked");
+        var _this = this;
+        var newStateDiff = {
+            user: this.state.user,
+            message: message
+        }
+
+        jQuery.ajax({
+            type: "DELETE",
+            url: "/api/users/messages",
+            data: JSON.stringify( newStateDiff ),
+            success: function(){
+                console.log("Delete message sent to db");
+                //_this._displayToasts();
+                _this._getUser();
+                //socket.emit('new state', {message: "deleted message"});
+            },
+            dataType: "text",
+            contentType : "application/json"
+        });
+
+    }
+
+
 
     _setActiveContainer(newActiveContainerId){
         console.log("Active Container ID changed");
