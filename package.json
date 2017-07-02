@@ -38,7 +38,6 @@
 
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-masonry-component": "^5.0.7",
     "socket.io": "^2.0.3",
     "webpack": "^2.6.1"
   },
