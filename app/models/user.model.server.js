@@ -3,9 +3,7 @@
 var config  = require("./../../config/config");
 
 //Crypto 
-// var crypto      = require('crypto');
-const bcrypt = require('bcrypt');
-const SALT_ROUNDS = 10;
+var crypto      = require('crypto');
 
 // mongo
 var mongo               = require("mongodb").MongoClient;
@@ -52,40 +50,13 @@ var UserSchema = new Schema({
     messages            : Array
 });
 
-// UserSchema.pre('save', function (next){
-//     if (this.password){
-//         this.salt = new Buffer(crypto.randomBytes(16).toString('base64'),'base64' );
-//         this.password = this.hashPassword(this.password);
-//     }
-//     next();
-// } );
-// never save the password in plaintext, always a hash of it
-
-UserSchema.pre("save", function (next) {
-    var user = this;
-
-    if (!user.isModified("password")) {
-        return next();
+UserSchema.pre('save', function (next){
+    if (this.password){
+        this.salt = new Buffer(crypto.randomBytes(16).toString('base64'),'base64' );
+        this.password = this.hashPassword(this.password);
     }
-
-    // use bcrypt to generate a salt
-    bcrypt.genSalt(SALT_ROUNDS, function (err, salt) {
-        if (err) {
-            return next(err);
-        }
-
-        // using the generated salt, use bcrypt to generate a hash of the password
-        bcrypt.hash(user.password, salt, function (err, hash) {
-            if (err) {
-                return next(err);
-            }
-
-            // store the password hash as the password
-            user.password = hash;
-            next();
-        });
-    });
-});
+    next();
+} );
 
 
 UserSchema.methods.isPasswordValid = function (rawPassword, callback) {
