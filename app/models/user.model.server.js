@@ -60,6 +60,7 @@ var UserSchema = new Schema({
 //     next();
 // } );
 // never save the password in plaintext, always a hash of it
+
 UserSchema.pre("save", function (next) {
     var user = this;
 
@@ -87,19 +88,39 @@ UserSchema.pre("save", function (next) {
 });
 
 
-UserSchema.methods.hashPassword = function(password){
-    return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
+UserSchema.methods.isPasswordValid = function (rawPassword, callback) {
+    bcrypt.compare(rawPassword, this.password, function (err, same) {
+        if (err) {
+            callback(err);
+        }
+        callback(null, same);
+    });
 };
 
 
+
+// UserSchema.methods.hashPassword = function(password){
+//     return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
+// };
+
+
 UserSchema.methods.authenticate = function(password){
-    return this.password === this.hashPassword(password);
+    UserSchema.methods.isPasswordValid(password, (err, isValid)=>{
+        if(err != null){
+            return false;
+        }
+        return isValid;
+    });
 };
 
 
 UserSchema.methods.validatePassword = function(password){
-    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-    return this.hash === hash;
+    UserSchema.methods.isPasswordValid(password, (err, isValid)=>{
+        if(err != null){
+            return false;
+        }
+        return isValid;
+    });
 };
 
 
