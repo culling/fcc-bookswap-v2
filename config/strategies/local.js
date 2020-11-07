@@ -1,31 +1,40 @@
 var passport        =   require('passport');
 var LocalStrategy   =   require('passport-local').Strategy;
-var mongo           =   require("./../mongo");
-var User            =   mongo.users.UserModel;
 
-module.exports = function(){
-    passport.use (new LocalStrategy(function (username, password, done){
-        User.findOne({
-            username:   username
-        }, function(err, user){
-            if (err){
-                return done(err);
-            }
+// export default LocalStrategy;
+// var mongo           =   require("./../mongo");
+// var UserModel       =   mongo.users.UserModel;
 
-            if(!user){
-                return done (null, false, {
-                    message:    'Unknown user'
-                });
-            }
-
-                if(!user.authenticate(password)){
-                return done(null, false, {
-                    message:    'Invalid password'
-                });
-            }
-
-        return done(null, user);
-        });
-    }));
-};
+// new LocalStrategy(function (username, password, cb) {
+//         const provider = 'local';
+//         // console.log('username: ', username);
+//         UserModel.findOne({
+//             username: username,
+//             provider: provider,
+//         }, function (err, user) {
+//             console.error('error: ', err);
+//             // console.log('user: ', user);
+//             if (err) {
+//                 cb(err);
+//                 return
+//             }
+//             if (!user) {
+//                 cb(null, false);
+//                 return
+//             }
+//             user.isPasswordValid(password, (err, isValid) => {
+//                 if (err) {
+//                     cb(err);
+//                     return;
+//                 }
+//                 if (!isValid) {
+//                     cb(null, null);
+//                     return;
+//                 }
+//                 cb(null, user);
+    
+//             });
+//         });
+//     }));
+// };
 

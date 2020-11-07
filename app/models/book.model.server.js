@@ -5,7 +5,7 @@ var config  = require("./../../config/config");
 
 // mongo
 var mongo               = require("mongodb").MongoClient;
-var mongoUrl            = process.env.MONGODB_URI //|| `mongodb://localhost:${mongoPort}/${mongoDatabase}`;
+var mongoUrl            = config.mongoUrl //|| `mongodb://localhost:${mongoPort}/${mongoDatabase}`;
 
 // Mongoose
 //https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
