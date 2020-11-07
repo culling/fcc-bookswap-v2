@@ -18,7 +18,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // mongoose.connect(mongoUrl);
-mongoose.connect("mongodb+srv://admin_1:W4cHLBX8CGOHiQmQ@cluster0.t7ruf.mongodb.net/fcc-bookswap?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://admin_1:W4cHLBX8CGOHiQmQ@cluster0.t7ruf.mongodb.net/fcc_bookswap?retryWrites=true&w=majority");
 //Get the default connection
 var db = mongoose.connection;
 
