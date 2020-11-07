@@ -15,8 +15,7 @@ var mongoUrl            = config.mongoUrl;
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-// mongoose.connect(mongoUrl);
-mongoose.connect("mongodb+srv://admin_1:W4cHLBX8CGOHiQmQ@cluster0.t7ruf.mongodb.net/fcc_bookswap?retryWrites=true&w=majority");
+mongoose.connect(mongoUrl);
 //Get the default connection
 var db = mongoose.connection;
 
@@ -59,39 +58,19 @@ UserSchema.pre('save', function (next){
 } );
 
 
-UserSchema.methods.isPasswordValid = function (rawPassword, callback) {
-    bcrypt.compare(rawPassword, this.password, function (err, same) {
-        if (err) {
-            callback(err);
-        }
-        callback(null, same);
-    });
+UserSchema.methods.hashPassword = function(password){
+    return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
 };
 
 
-
-// UserSchema.methods.hashPassword = function(password){
-//     return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
-// };
-
-
 UserSchema.methods.authenticate = function(password){
-    UserSchema.methods.isPasswordValid(password, (err, isValid)=>{
-        if(err != null){
-            return false;
-        }
-        return isValid;
-    });
+    return this.password === this.hashPassword(password);
 };
 
 
 UserSchema.methods.validatePassword = function(password){
-    UserSchema.methods.isPasswordValid(password, (err, isValid)=>{
-        if(err != null){
-            return false;
-        }
-        return isValid;
-    });
+    var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+    return this.hash === hash;
 };
 
 

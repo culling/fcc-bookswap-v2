@@ -14,7 +14,6 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 mongoose.connect(mongoUrl);
-
 //Get the default connection
 var db = mongoose.connection;
 
