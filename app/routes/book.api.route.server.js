@@ -35,7 +35,6 @@ router.get("/all", function(req, res){
         res.write( JSON.stringify( found, null, "\t") );
         res.end();
     });
-
 });
 
 router.get("/", function(req, res){
