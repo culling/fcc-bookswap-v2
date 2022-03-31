@@ -6,7 +6,7 @@ Free Code Camp - Manage a Book Trading Club
 ![fcc-bookswap-v2 on GitHub](docs/screenshot-03.png)
 
 ## Purpose - Manage a Book Trading Club
-https://www.freecodecamp.org/challenges/manage-a-book-trading-club
+https://www.freecodecamp.org/learn/coding-interview-prep/take-home-projects/manage-a-book-trading-club
 
 
 ## Here are the specific user stories you should implement for this project
